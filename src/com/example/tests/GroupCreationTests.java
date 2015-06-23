@@ -13,7 +13,7 @@ public class GroupCreationTests extends TestBase {
 		group.header = "header name 1";
 		group.footer = "footer name 1";
 		fillGroupForm(group);
-		submitGroupCreation();
+		submitItemCreation();
 		returnToGroupsPage();
 	}
 
@@ -23,7 +23,7 @@ public class GroupCreationTests extends TestBase {
 		gotoGroupsPage();
 		initGroupCreation();
 		fillGroupForm(new GroupData("", "", ""));
-		submitGroupCreation();
+		submitItemCreation();
 		returnToGroupsPage();
 	}
 }

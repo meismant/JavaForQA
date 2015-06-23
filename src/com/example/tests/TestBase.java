@@ -10,6 +10,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
@@ -37,13 +38,18 @@ public class TestBase {
 			fail(verificationErrorString);
 		}
 	}
-	
-	protected void returnToGroupsPage() {
-		driver.findElement(By.linkText("group page")).click();
+
+	protected void openMainPage() {
+		driver.get(baseUrl + "/addressbookv4.1.4/");
 	}
 
-	protected void submitGroupCreation() {
-		driver.findElement(By.name("submit")).click();
+	// block for groups tests
+	protected void gotoGroupsPage() {
+		driver.findElement(By.linkText("groups")).click();
+	}
+
+	protected void initGroupCreation() {
+		driver.findElement(By.name("new")).click();
 	}
 
 	protected void fillGroupForm(GroupData group) {
@@ -55,19 +61,54 @@ public class TestBase {
 		driver.findElement(By.name("group_footer")).sendKeys(group.footer);
 	}
 
-	protected void initGroupCreation() {
-		driver.findElement(By.name("new")).click();
+	protected void submitItemCreation() {
+		driver.findElement(By.name("submit")).click();
 	}
 
-	protected void gotoGroupsPage() {
-		driver.findElement(By.linkText("groups")).click();
+	protected void returnToGroupsPage() {
+		driver.findElement(By.linkText("group page")).click();
 	}
 
-	protected void openMainPage() {
-		driver.get(baseUrl + "/addressbookv4.1.4/");
+	// block for add new tests	
+	protected void gotoAddNewPage() {
+		driver.findElement(By.linkText("add new")).click();
 	}
 
+	protected void fillPersonForm(PersonData person) {
+		driver.findElement(By.name("firstname")).clear();
+	    driver.findElement(By.name("firstname")).sendKeys(person.firstname);
+	    driver.findElement(By.name("lastname")).clear();
+	    driver.findElement(By.name("lastname")).sendKeys(person.lastname);
+	    driver.findElement(By.name("address")).clear();
+	    driver.findElement(By.name("address")).sendKeys(person.address);
+	    driver.findElement(By.name("home")).clear();
+	    driver.findElement(By.name("home")).sendKeys(person.home);
+	    driver.findElement(By.name("mobile")).clear();
+	    driver.findElement(By.name("mobile")).sendKeys(person.mobile);
+	    driver.findElement(By.name("work")).clear();
+	    driver.findElement(By.name("work")).sendKeys(person.work);
+	    driver.findElement(By.name("email")).clear();
+	    driver.findElement(By.name("email")).sendKeys(person.email);
+	    driver.findElement(By.name("email2")).clear();
+	    driver.findElement(By.name("email2")).sendKeys(person.email2);
+	    new Select(driver.findElement(By.name("bday"))).selectByVisibleText(person.bday);
+	    new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText(person.bmonth);
+	    driver.findElement(By.name("byear")).clear();
+	    driver.findElement(By.name("byear")).sendKeys(person.byear);
+	    new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(person.new_group);
+	    driver.findElement(By.name("address2")).clear();
+	    driver.findElement(By.name("address2")).sendKeys(person.address2);
+	    driver.findElement(By.name("phone2")).clear();
+	    driver.findElement(By.name("phone2")).sendKeys(person.phone2);
+	}
 	
+	protected void returnToAddNewPage() {
+		driver.findElement(By.linkText("add next")).click();
+	}
+	
+/*	protected void submitPersonCreation() {
+		driver.findElement(By.name("submit")).click();
+	}*/
 
 	private boolean isElementPresent(By by) {
 		try {

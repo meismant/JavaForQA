@@ -74,7 +74,7 @@ public class TestBase {
 		driver.findElement(By.linkText("add new")).click();
 	}
 
-	protected void fillPersonForm(PersonData person) {
+	protected void fillPersonForm(ContactData person) {
 		driver.findElement(By.name("firstname")).clear();
 		driver.findElement(By.name("firstname")).sendKeys(person.firstname);
 		driver.findElement(By.name("lastname")).clear();

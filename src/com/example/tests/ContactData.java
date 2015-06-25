@@ -1,6 +1,6 @@
 package com.example.tests;
 
-public class PersonData {
+public class ContactData {
 	public String firstname;
 	public String lastname;
 	public String address;
@@ -16,13 +16,13 @@ public class PersonData {
 	public String address2;
 	public String phone2;
 
-	public PersonData() {
+	public ContactData() {
 		this.bday="-";
 		this.bmonth="-";
 		this.new_group="[none]";
 	}
 
-	public PersonData(String firstname, String lastname, String address,
+	public ContactData(String firstname, String lastname, String address,
 			String home, String mobile, String work, String email,
 			String email2, String bday, String bmonth, String byear,
 			String new_group, String address2, String phone2) {

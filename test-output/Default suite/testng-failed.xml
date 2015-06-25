@@ -8,6 +8,7 @@
           <include name="setUp"/>
           <include name="tearDown"/>
           <include name="testEmptyPersonCreation"/>
+          <include name="testNonEmptyPersonCreation"/>
         </methods>
       </class> <!-- com.example.tests.PersonCreationTests -->
     </classes>

@@ -17,13 +17,16 @@ public class PersonData {
 	public String phone2;
 
 	public PersonData() {
+		this.bday="-";
+		this.bmonth="-";
+		this.new_group="[none]";
 	}
 
 	public PersonData(String firstname, String lastname, String address,
 			String home, String mobile, String work, String email,
 			String email2, String bday, String bmonth, String byear,
 			String new_group, String address2, String phone2) {
-		this();
+		//this();
 		this.firstname=firstname;
 		this.lastname=lastname;
 		this.address=address;

@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="13362" started-at="2015-06-25T04:19:03Z" finished-at="2015-06-25T04:19:16Z">
+  <suite name="Default suite" duration-ms="12633" started-at="2015-06-25T10:37:15Z" finished-at="2015-06-25T10:37:27Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="13362" started-at="2015-06-25T04:19:03Z" finished-at="2015-06-25T04:19:16Z">
+    <test name="Default test" duration-ms="12633" started-at="2015-06-25T10:37:15Z" finished-at="2015-06-25T10:37:27Z">
       <class name="com.example.tests.PersonCreationTests">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.example.tests.PersonCreationTests@2d6d8735]" name="setUp" is-config="true" duration-ms="5618" started-at="2015-06-25T07:19:03Z" finished-at="2015-06-25T07:19:09Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.example.tests.PersonCreationTests@2d6d8735]" name="setUp" is-config="true" duration-ms="6283" started-at="2015-06-25T13:37:15Z" finished-at="2015-06-25T13:37:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="testEmptyPersonCreation()[pri:0, instance:com.example.tests.PersonCreationTests@2d6d8735]" name="testEmptyPersonCreation" duration-ms="3275" started-at="2015-06-25T07:19:09Z" finished-at="2015-06-25T07:19:12Z">
+        <test-method status="PASS" signature="testEmptyPersonCreation()[pri:0, instance:com.example.tests.PersonCreationTests@2d6d8735]" name="testEmptyPersonCreation" duration-ms="2386" started-at="2015-06-25T13:37:21Z" finished-at="2015-06-25T13:37:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testEmptyPersonCreation -->
-        <test-method status="PASS" signature="testNonEmptyPersonCreation()[pri:0, instance:com.example.tests.PersonCreationTests@2d6d8735]" name="testNonEmptyPersonCreation" duration-ms="3953" started-at="2015-06-25T07:19:12Z" finished-at="2015-06-25T07:19:16Z">
+        <test-method status="PASS" signature="testNonEmptyPersonCreation()[pri:0, instance:com.example.tests.PersonCreationTests@2d6d8735]" name="testNonEmptyPersonCreation" duration-ms="3387" started-at="2015-06-25T13:37:23Z" finished-at="2015-06-25T13:37:27Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNonEmptyPersonCreation -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.example.tests.PersonCreationTests@2d6d8735]" name="tearDown" is-config="true" duration-ms="516" started-at="2015-06-25T07:19:16Z" finished-at="2015-06-25T07:19:16Z">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.example.tests.PersonCreationTests@2d6d8735]" name="tearDown" is-config="true" duration-ms="553" started-at="2015-06-25T13:37:27Z" finished-at="2015-06-25T13:37:27Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

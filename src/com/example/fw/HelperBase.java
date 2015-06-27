@@ -52,8 +52,11 @@ public abstract class HelperBase {
 	}
 
 	public void type(By locator, String text) {
-		driver.findElement(locator).clear();		
-		driver.findElement(locator).sendKeys(text);
+		if (text != null) {
+		
+			driver.findElement(locator).clear();
+			driver.findElement(locator).sendKeys(text);
+		}
 	}
 
 	public void click(By locator) {

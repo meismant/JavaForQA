@@ -1,9 +1,6 @@
 package com.example.fw;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.By.ById;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 import com.example.tests.GroupData;
 

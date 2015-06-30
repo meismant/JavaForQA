@@ -16,17 +16,13 @@ public class ContactData {
 	public String address2;
 	public String phone2;
 
-	public ContactData() {
-		this.bday = "-";
-		this.bmonth = "-";
-		this.new_group = "[none]";
+	public ContactData() {	
 	}
 
 	public ContactData(String firstname, String lastname, String address,
 			String home, String mobile, String work, String email,
 			String email2, String bday, String bmonth, String byear,
 			String new_group, String address2, String phone2) {
-		// this();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.address = address;

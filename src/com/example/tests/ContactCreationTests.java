@@ -38,12 +38,15 @@ public class ContactCreationTests extends TestBase {
 		app.getNavigationHelper().openMainPage();
 		app.getContactHelper().initContactCreation();
 		ContactData contact = new ContactData();
+		contact.bday = "-";
+		contact.bmonth = "-";
+		contact.new_group = "[none]";
 		app.getContactHelper().fillContactForm(contact);
 		app.getContactHelper().submitContactCreation();
 		app.getContactHelper().returnToHomePage();
 	}
 
-	public String bdayRand() {
+	private String bdayRand() {
 		String bday = "-";
 
 		WebElement element = app.driver.findElement(By.name("bday"));

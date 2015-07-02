@@ -51,5 +51,5 @@ public class ContactHelper extends HelperBase {
 	public void sumbitContactModification(){
 		click(By.xpath("//input[@value='Update']"));
 	}
-
+	
 }

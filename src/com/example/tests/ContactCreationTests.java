@@ -46,18 +46,6 @@ public class ContactCreationTests extends TestBase {
 		app.getContactHelper().returnToHomePage();
 	}
 
-	private String bdayRand() {
-		String bday = "-";
-
-		WebElement element = app.driver.findElement(By.name("bday"));
-		Select select = new Select(element);
-		Random rnd = new Random();
-		int index = rnd.nextInt(31);
-		bday = select.getOptions().get(index + 1).getText();
-
-		return bday;
-	}
-
 	private String nameRand() {
 		String[] names = new String[] { "Kate", "Mattew", "John", "Marybet" };
 		Random rnd = new Random();
@@ -82,16 +70,27 @@ public class ContactCreationTests extends TestBase {
 	}
 
 	private String emailRand() {
-		String futureEmail="";
+		String futureEmail = "";
 		int index;
 		Random rnd = new Random();
-		for (int i=0; i<6; i++)
-		{
-			index = rnd.nextInt(122-97)+97;
-			futureEmail+=(char)index;
-		}		
-		futureEmail+="@test.com";
+		for (int i = 0; i < 6; i++) {
+			index = rnd.nextInt(122 - 97) + 97;
+			futureEmail += (char) index;
+		}
+		futureEmail += "@test.com";
 		return futureEmail;
+	}
+
+	private String bdayRand() {
+		String bday = "-";
+
+		WebElement element = app.driver.findElement(By.name("bday"));
+		Select select = new Select(element);
+		Random rnd = new Random();
+		int index = rnd.nextInt(31);
+		bday = select.getOptions().get(index + 1).getText();
+
+		return bday;
 	}
 
 	private String bmonthRand() {

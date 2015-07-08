@@ -41,15 +41,18 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void initContactModification(int index) {
-		click(By.xpath("(//a/img[@title='Edit'])[" + index + "]"));
+		if (checkboxExist()) {
+			click(By.xpath("(//a/img[@title='Edit'])[" + index+1 + "]"));
+		} else
+			System.out.println("There is no any contact");
 	}
 
 	public void deleteContact() {
 		click(By.xpath("//input[@value='Delete']"));
 	}
-	
-	public void sumbitContactModification(){
+
+	public void sumbitContactModification() {
 		click(By.xpath("//input[@value='Update']"));
 	}
-	
+
 }

@@ -1,6 +1,10 @@
 package com.example.fw;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.example.tests.ContactData;
 
@@ -16,7 +20,7 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void fillContactForm(ContactData contactData) {
-		type(By.name("firstname"), contactData.firstname);
+		type(By.name("firstname"), contactData.name);
 		type(By.name("lastname"), contactData.lastname);
 		type(By.name("address"), contactData.address);
 		type(By.name("home"), contactData.home);
@@ -42,7 +46,7 @@ public class ContactHelper extends HelperBase {
 
 	public void initContactModification(int index) {
 		if (checkboxExist()) {
-			click(By.xpath("(//a/img[@title='Edit'])[" + index+1 + "]"));
+			click(By.xpath("(//a/img[@title='Edit'])[" + index + 1 + "]"));
 		} else
 			System.out.println("There is no any contact");
 	}
@@ -55,4 +59,17 @@ public class ContactHelper extends HelperBase {
 		click(By.xpath("//input[@value='Update']"));
 	}
 
+	public List<ContactData> getContacts() {
+		List<ContactData> contacts = new ArrayList<ContactData>();
+		List<WebElement> names = driver.findElements(By.xpath("//tr[@name='entry']/td[2]"));				
+		List<WebElement> lastNames = driver.findElements(By.xpath("//tr[@name='entry']/td[3]"));
+		for (int i=0; i<names.size(); i++)
+		{
+			ContactData contact = new ContactData();
+			contact.name=names.get(i).getText();
+			contact.lastname=lastNames.get(i).getText();
+			contacts.add(contact);
+		}	
+		return contacts;
+	}
 }

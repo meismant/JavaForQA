@@ -1,20 +1,29 @@
 package com.example.tests;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTests extends TestBase {
 
 	@Test
 	public void testNonEmptyContactCreation() throws Exception {
 		app.getNavigationHelper().openMainPage();
+
+		// save old state
+		List<ContactData> oldList = app.getContactHelper().getContacts();
+
+		// actions
 		app.getContactHelper().initContactCreation();
 		ContactData contact = new ContactData();
-		contact.firstname = nameRand();
+		contact.name = nameRand();
 		contact.lastname = surnameRand();
 		contact.address = addressRand();
 		contact.home = phoneRand();
@@ -31,11 +40,26 @@ public class ContactCreationTests extends TestBase {
 		app.getContactHelper().fillContactForm(contact);
 		app.getContactHelper().submitContactCreation();
 		app.getContactHelper().returnToHomePage();
+
+		// save new state
+		List<ContactData> newList = app.getContactHelper().getContacts();
+
+		// compare
+		// assertEquals(oldList.size()+1, newList.size(),
+		// "Sizes aren't equals");
+		oldList.add(contact);		
+		Collections.sort(oldList);
+		assertEquals(newList, oldList);
 	}
 
 	@Test
 	public void testEmptyContactCreation() throws Exception {
 		app.getNavigationHelper().openMainPage();
+
+		// save old state
+		List<ContactData> oldList = app.getContactHelper().getContacts();
+
+		// actions
 		app.getContactHelper().initContactCreation();
 		ContactData contact = new ContactData();
 		contact.bday = "-";
@@ -44,6 +68,16 @@ public class ContactCreationTests extends TestBase {
 		app.getContactHelper().fillContactForm(contact);
 		app.getContactHelper().submitContactCreation();
 		app.getContactHelper().returnToHomePage();
+
+		// save new state
+		List<ContactData> newList = app.getContactHelper().getContacts();
+
+		// compare
+		// assertEquals(oldList.size()+1, newList.size(),
+		// "Sizes aren't equals");
+		oldList.add(contact);
+		Collections.sort(oldList);
+		assertEquals(newList, oldList);
 	}
 
 	private String nameRand() {

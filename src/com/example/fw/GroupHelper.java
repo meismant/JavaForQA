@@ -38,7 +38,7 @@ public class GroupHelper extends HelperBase {
 	}
 
 	private void selectGroupByIndex(int index) {
-		click(By.xpath("//input[@name='selected[]'][" + (index+1) + "]"));
+		click(By.xpath("//input[@name='selected[]'][" + (index + 1) + "]"));
 	}
 
 	public void initGroupModification(int index) {
@@ -48,7 +48,6 @@ public class GroupHelper extends HelperBase {
 
 	public void sumbitGroupModification() {
 		click(By.name("update"));
-
 	}
 
 	public List<GroupData> getGroups() {

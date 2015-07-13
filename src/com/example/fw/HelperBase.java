@@ -70,12 +70,4 @@ public abstract class HelperBase {
 			new Select(driver.findElement(locator)).selectByVisibleText(text);
 		}
 	}
-
-	public boolean checkboxExist() {
-	  driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-	  boolean result = isElementPresent(By.name("selected[]"));
-	  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	  return result;
-	 }
-
 }

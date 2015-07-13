@@ -31,7 +31,9 @@ public class ContactHelper extends HelperBase {
 		selectByText(By.name("bday"), contactData.bday);
 		selectByText(By.name("bmonth"), contactData.bmonth);
 		type(By.name("byear"), contactData.byear);
-		selectByText(By.name("new_group"), contactData.new_group);
+		if (isElementPresent(By.name("new_group"))) {
+			selectByText(By.name("new_group"), contactData.new_group);
+		}
 		type(By.name("address2"), contactData.address2);
 		type(By.name("phone2"), contactData.phone2);
 	}
@@ -45,8 +47,8 @@ public class ContactHelper extends HelperBase {
 	}
 
 	public void initContactModification(int index) {
-		if (checkboxExist()) {
-			click(By.xpath("(//a/img[@title='Edit'])[" + index + 1 + "]"));
+		if (isElementPresent(By.name("selected[]"))) {
+			click(By.xpath("(//a/img[@title='Edit'])[" + (index + 1) + "]"));
 		} else
 			System.out.println("There is no any contact");
 	}
@@ -61,15 +63,16 @@ public class ContactHelper extends HelperBase {
 
 	public List<ContactData> getContacts() {
 		List<ContactData> contacts = new ArrayList<ContactData>();
-		List<WebElement> names = driver.findElements(By.xpath("//tr[@name='entry']/td[2]"));				
-		List<WebElement> lastNames = driver.findElements(By.xpath("//tr[@name='entry']/td[3]"));
-		for (int i=0; i<names.size(); i++)
-		{
+		List<WebElement> allRows = driver.findElements(By
+				.xpath("//tr[@name='entry']"));
+		for (WebElement row : allRows) {
 			ContactData contact = new ContactData();
-			contact.name=names.get(i).getText();
-			contact.lastname=lastNames.get(i).getText();
+			contact.name = row.findElement(By.xpath("td[2]")).getText(); 
+			contact.lastname = row.findElement(By.xpath("td[3]")).getText(); 
+			contact.email = row.findElement(By.xpath("td[4]")).getText();
+			contact.mobile = row.findElement(By.xpath("td[5]")).getText();
 			contacts.add(contact);
-		}	
+		}
 		return contacts;
 	}
 }

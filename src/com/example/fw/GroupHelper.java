@@ -14,6 +14,52 @@ public class GroupHelper extends HelperBase {
 		super(manager);
 	}
 
+	public List<GroupData> getGroups() {
+		List<GroupData> groups = new ArrayList<GroupData>();
+
+		manager.navigateTo().groupsPage();
+		List<WebElement> checkBoxes = driver
+				.findElements(By.name("selected[]"));
+		for (WebElement checkbox : checkBoxes) {
+			String title = checkbox.getAttribute("title");
+			String name = title.substring("Select (".length(), title.length()
+					- ")".length());
+			groups.add(new GroupData().withName(name));
+		}
+		return groups;
+	}
+
+	public GroupHelper createGroup(GroupData group) {
+		manager.navigateTo().groupsPage();
+		initGroupCreation();
+		fillGroupForm(group);
+		submitGroupCreation();
+		returnToGroupsPage();
+		return this;
+	}
+
+	public GroupHelper modifyGroup(int index, GroupData group) {
+		manager.navigateTo().groupsPage();
+		initGroupModification(index);
+		fillGroupForm(group);
+		submitGroupCreation();
+		returnToGroupsPage();
+		return this;
+	}
+
+	public GroupHelper deleteGroup(int index) {
+		manager.navigateTo().groupsPage();
+		if (index >= 0) {
+			selectGroupByIndex(index);
+			submitGroupDeletion();
+			returnToGroupsPage();
+		} else
+			new Error("There is no any groups");
+		return this;
+	}
+
+	// ----------------------------------------------------
+
 	public GroupHelper initGroupCreation() {
 		click(By.name("new"));
 		return this;
@@ -36,12 +82,6 @@ public class GroupHelper extends HelperBase {
 		return this;
 	}
 
-	public GroupHelper deleteGroup(int index) {
-		selectGroupByIndex(index);
-		click(By.name("delete"));
-		return this;
-	}
-
 	private GroupHelper selectGroupByIndex(int index) {
 		click(By.xpath("//input[@name='selected[]'][" + (index + 1) + "]"));
 		return this;
@@ -58,17 +98,8 @@ public class GroupHelper extends HelperBase {
 		return this;
 	}
 
-	public List<GroupData> getGroups() {
-		List<GroupData> groups = new ArrayList<GroupData>();
-		List<WebElement> checkBoxes = driver
-				.findElements(By.name("selected[]"));
-		for (WebElement checkbox : checkBoxes) {
-			String title = checkbox.getAttribute("title");
-			String name = title.substring("Select (".length(), title.length()
-					- ")".length());
-			groups.add(new GroupData().withName(name));
-		}
-
-		return groups;
+	private void submitGroupDeletion() {
+		click(By.name("delete"));
 	}
+
 }

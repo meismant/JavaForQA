@@ -10,22 +10,23 @@ import org.testng.annotations.Test;
 
 public class GroupRemovalTests extends TestBase {
 
-	//to do: check if there are no any groups
+	// to do: check if there are no any groups
 	@Test
 	public void deleteSomeGroup() {
-		app.getNavigationHelper().openMainPage();
-		app.getNavigationHelper().gotoGroupsPage();
-		
+
 		// save old state
-		List<GroupData> oldList = app.getGroupHelper().getGroups();	
-		
-		Random rnd=new Random();
-		int index=rnd.nextInt(oldList.size()-1);
-		
+		List<GroupData> oldList = app.getGroupHelper().getGroups();
+
+		Random rnd = new Random();
+		int index = -1;
+		if (oldList.size() > 1) {
+			index = rnd.nextInt(oldList.size() - 1);
+		} else if (oldList.size() == 1) {
+			index = 0;
+		}
+
 		// actions
-		app.getGroupHelper()
-		.deleteGroup(index)
-		.returnToGroupsPage();
+		app.getGroupHelper().deleteGroup(index);
 
 		// save new state
 		List<GroupData> newList = app.getGroupHelper().getGroups();
@@ -35,5 +36,4 @@ public class GroupRemovalTests extends TestBase {
 		Collections.sort(oldList);
 		assertEquals(newList, oldList);
 	}
-
 }

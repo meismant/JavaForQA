@@ -20,9 +20,10 @@ public class ContactRemovalTests extends TestBase {
 		int index=rnd.nextInt(oldList.size()-1);
 
 		// actions
-		app.getContactHelper().initContactModification(index);
-		app.getContactHelper().deleteContact();
-		app.getNavigationHelper().gotoHomePage();
+		app.getContactHelper()
+		.initContactModification(index)
+		.deleteContact()
+		.returnToHomePage();
 
 		// save new state
 		List<ContactData> newList = app.getContactHelper().getContacts();

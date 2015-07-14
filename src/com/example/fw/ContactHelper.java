@@ -15,50 +15,57 @@ public class ContactHelper extends HelperBase {
 
 	}
 
-	public void initContactCreation() {
+	public ContactHelper initContactCreation() {
 		click(By.linkText("add new"));
+		return this;
 	}
 
-	public void fillContactForm(ContactData contactData) {
-		type(By.name("firstname"), contactData.name);
-		type(By.name("lastname"), contactData.lastname);
-		type(By.name("address"), contactData.address);
-		type(By.name("home"), contactData.home);
-		type(By.name("mobile"), contactData.mobile);
-		type(By.name("work"), contactData.work);
-		type(By.name("email"), contactData.email);
-		type(By.name("email2"), contactData.email2);
-		selectByText(By.name("bday"), contactData.bday);
-		selectByText(By.name("bmonth"), contactData.bmonth);
-		type(By.name("byear"), contactData.byear);
+	public ContactHelper fillContactForm(ContactData contactData) {
+		type(By.name("firstname"), contactData.getName());
+		type(By.name("lastname"), contactData.getLastname());
+		type(By.name("address"), contactData.getAddress());
+		type(By.name("home"), contactData.getHome());
+		type(By.name("mobile"), contactData.getMobile());
+		type(By.name("work"), contactData.getWork());
+		type(By.name("email"), contactData.getEmail());
+		type(By.name("email2"), contactData.getEmail2());
+		selectByText(By.name("bday"), contactData.getBday());
+		selectByText(By.name("bmonth"), contactData.getBmonth());
+		type(By.name("byear"), contactData.getByear());
 		if (isElementPresent(By.name("new_group"))) {
-			selectByText(By.name("new_group"), contactData.new_group);
+			selectByText(By.name("new_group"), contactData.getNew_group());
 		}
-		type(By.name("address2"), contactData.address2);
-		type(By.name("phone2"), contactData.phone2);
+		type(By.name("address2"), contactData.getAddress2());
+		type(By.name("phone2"), contactData.getPhone2());
+		return this;
 	}
 
-	public void submitContactCreation() {
+	public ContactHelper submitContactCreation() {
 		click(By.name("submit"));
+		return this;
 	}
 
-	public void returnToHomePage() {
+	public ContactHelper returnToHomePage() {
 		click(By.linkText("home page"));
+		return this;
 	}
 
-	public void initContactModification(int index) {
+	public ContactHelper initContactModification(int index) {
 		if (isElementPresent(By.name("selected[]"))) {
 			click(By.xpath("(//a/img[@title='Edit'])[" + (index + 1) + "]"));
 		} else
 			System.out.println("There is no any contact");
+		return this;
 	}
 
-	public void deleteContact() {
+	public ContactHelper deleteContact() {
 		click(By.xpath("//input[@value='Delete']"));
+		return this;
 	}
 
-	public void sumbitContactModification() {
+	public ContactHelper sumbitContactModification() {
 		click(By.xpath("//input[@value='Update']"));
+		return this;
 	}
 
 	public List<ContactData> getContacts() {
@@ -67,10 +74,10 @@ public class ContactHelper extends HelperBase {
 				.xpath("//tr[@name='entry']"));
 		for (WebElement row : allRows) {
 			ContactData contact = new ContactData();
-			contact.name = row.findElement(By.xpath("td[2]")).getText(); 
-			contact.lastname = row.findElement(By.xpath("td[3]")).getText(); 
-			contact.email = row.findElement(By.xpath("td[4]")).getText();
-			contact.mobile = row.findElement(By.xpath("td[5]")).getText();
+			contact.withName(row.findElement(By.xpath("td[3]")).getText())
+					.withLastname(row.findElement(By.xpath("td[2]")).getText())
+					.withEmail(row.findElement(By.xpath("td[4]")).getText())
+					.withMobile(row.findElement(By.xpath("td[5]")).getText());
 			contacts.add(contact);
 		}
 		return contacts;

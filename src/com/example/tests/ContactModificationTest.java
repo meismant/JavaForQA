@@ -20,10 +20,11 @@ public class ContactModificationTest extends TestBase {
 		int index=rnd.nextInt(oldList.size()-1);
 		
 		// actions
-		app.getContactHelper().initContactModification(index);		
-		app.getContactHelper().fillContactForm(contact);
-		app.getContactHelper().sumbitContactModification();
-		app.getNavigationHelper().gotoHomePage();
+		app.getContactHelper()
+		.initContactModification(index)	
+		.fillContactForm(contact)
+		.sumbitContactModification()
+		.returnToHomePage();
 		
 		// save new state
 		List<ContactData> newList = app.getContactHelper().getContacts();

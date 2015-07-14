@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class GroupModificationTest extends TestBase {
 
-	@Test (dataProvider = "randomValidGroupGenerator")
+	@Test(dataProvider = "randomValidGroupGenerator")
 	public void modifySomeGroup(GroupData group) {
 		app.getNavigationHelper().openMainPage();
 		app.getNavigationHelper().gotoGroupsPage();
@@ -18,24 +18,20 @@ public class GroupModificationTest extends TestBase {
 		// save old state
 		List<GroupData> oldList = app.getGroupHelper().getGroups();
 
-		Random rnd=new Random();
-		int index=rnd.nextInt(oldList.size()-1);
-		
-		// actions
-		app.getGroupHelper().initGroupModification(index);		
-		app.getGroupHelper().fillGroupForm(group);
-		app.getGroupHelper().sumbitGroupModification();
+		Random rnd = new Random();
+		int index = rnd.nextInt(oldList.size() - 1);
 
-		app.getGroupHelper().returnToGroupsPage();
+		// actions
+		app.getGroupHelper().initGroupModification(index).fillGroupForm(group)
+				.sumbitGroupModification().returnToGroupsPage();
 
 		// save new state
 		List<GroupData> newList = app.getGroupHelper().getGroups();
 
-		// compare states		
+		// compare states
 		oldList.remove(index);
 		oldList.add(group);
 		Collections.sort(oldList);
 		assertEquals(newList, oldList);
 	}
-
 }

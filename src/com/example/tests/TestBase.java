@@ -29,21 +29,20 @@ public class TestBase {
 	public Iterator<Object[]> randomValidGroupGenerator() {
 		List<Object[]> list = new ArrayList<Object[]>();
 		for (int i = 0; i < 5; i++) {
-			GroupData group = new GroupData();
-			group.name = generateRandomString("name");
-			group.header = generateRandomString("header");
-			group.footer = generateRandomString("footer");
+			GroupData group = new GroupData().withName(generateRandomString())
+					.withHeader(generateRandomString())
+					.withFooter(generateRandomString());
 			list.add(new Object[] { group });
 		}
 		return list.iterator();
 	}
 
-	public String generateRandomString(String str) {
+	public String generateRandomString() {
 		Random rnd = new Random();
 		if (rnd.nextInt(3) == 0) {
 			return "";
 		} else {
-			return str + rnd.nextInt();
+			return Integer.toString(rnd.nextInt());
 		}
 	}
 
@@ -54,20 +53,13 @@ public class TestBase {
 		for (int i = 0; i < 5; i++) {
 			ContactData contact = new ContactData();
 			if (rnd.nextInt(5) > 0) {
-				contact.name = nameRand();
-				contact.lastname = surnameRand();
-				contact.address = addressRand();
-				contact.home = phoneRand();
-				contact.mobile = phoneRand();
-				contact.work = phoneRand();
-				contact.email = emailRand();
-				contact.email2 = emailRand();
-				contact.bday = bdayRand();
-				contact.bmonth = bmonthRand();
-				contact.byear = byearRand();
-				contact.new_group = new_groupRand();
-				contact.address2 = addressRand();
-				contact.phone2 = phoneRand();
+				contact.withName(nameRand()).withLastname(surnameRand())
+						.withAddress(addressRand()).withHome(phoneRand())
+						.withMobile(phoneRand()).withWork(phoneRand())
+						.withEmail(emailRand()).withEmail2(emailRand())
+						.withBday(bdayRand()).withBmonth(bmonthRand())
+						.withByear(byearRand()).withNew_group(new_groupRand())
+						.withAddress2(addressRand()).withPhone2(phoneRand());
 			}
 			list.add(new Object[] { contact });
 		}

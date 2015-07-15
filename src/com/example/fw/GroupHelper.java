@@ -48,13 +48,10 @@ public class GroupHelper extends HelperBase {
 	}
 
 	public GroupHelper deleteGroup(int index) {
-		manager.navigateTo().groupsPage();
-		if (index >= 0) {
+		manager.navigateTo().groupsPage();		
 			selectGroupByIndex(index);
 			submitGroupDeletion();
 			returnToGroupsPage();
-		} else
-			new Error("There is no any groups");
 		return this;
 	}
 

@@ -18,6 +18,51 @@ public class ContactHelper extends HelperBase {
 
 	}
 
+	public List<ContactData> getContacts() {
+		List<ContactData> contacts = new ArrayList<ContactData>();
+		manager.navigateTo().mainPage();
+		List<WebElement> allRows = driver.findElements(By
+				.xpath("//tr[@name='entry']"));
+		for (WebElement row : allRows) {
+			ContactData contact = new ContactData();
+			contact.withName(row.findElement(By.xpath("td[3]")).getText())
+					.withLastname(row.findElement(By.xpath("td[2]")).getText())
+					.withEmail(row.findElement(By.xpath("td[4]")).getText())
+					.withMobile(row.findElement(By.xpath("td[5]")).getText());
+			contacts.add(contact);
+		}
+		return contacts;
+	}
+
+	public ContactHelper createContact(ContactData contact, boolean formType) {
+		manager.navigateTo().mainPage();
+		initContactCreation();
+		fillContactForm(contact, formType);
+		submitContactCreation();
+		returnToHomePage();
+		return this;
+	}
+
+	public ContactHelper modifyContact(int index, ContactData contact,
+			boolean formType) {
+		manager.navigateTo().mainPage();
+		initContactModification(index);
+		fillContactForm(contact, MODIFICATION);
+		sumbitContactModification();
+		returnToHomePage();
+		return this;
+	}
+	
+	public ContactHelper deleteContact(int index){
+		manager.navigateTo().mainPage();
+		initContactModification(index);
+		submitContactDeletion();
+		returnToHomePage();
+		return this;
+	}
+
+	// -----------------------------------------------------------------------------------
+
 	public ContactHelper initContactCreation() {
 		click(By.linkText("add new"));
 		return this;
@@ -36,7 +81,7 @@ public class ContactHelper extends HelperBase {
 		selectByText(By.name("bday"), contactData.getBday());
 		selectByText(By.name("bmonth"), contactData.getBmonth());
 		type(By.name("byear"), contactData.getByear());
-		if (formType==CREATION) {
+		if (formType == CREATION) {
 			// selectByText(By.name("new_group"), contactData.getNew_group());
 		} else {
 			if (driver.findElements(By.name("new_group")).size() != 0) {
@@ -67,7 +112,7 @@ public class ContactHelper extends HelperBase {
 		return this;
 	}
 
-	public ContactHelper deleteContact() {
+	public ContactHelper submitContactDeletion() {
 		click(By.xpath("//input[@value='Delete']"));
 		return this;
 	}
@@ -75,20 +120,5 @@ public class ContactHelper extends HelperBase {
 	public ContactHelper sumbitContactModification() {
 		click(By.xpath("//input[@value='Update']"));
 		return this;
-	}
-
-	public List<ContactData> getContacts() {
-		List<ContactData> contacts = new ArrayList<ContactData>();
-		List<WebElement> allRows = driver.findElements(By
-				.xpath("//tr[@name='entry']"));
-		for (WebElement row : allRows) {
-			ContactData contact = new ContactData();
-			contact.withName(row.findElement(By.xpath("td[3]")).getText())
-					.withLastname(row.findElement(By.xpath("td[2]")).getText())
-					.withEmail(row.findElement(By.xpath("td[4]")).getText())
-					.withMobile(row.findElement(By.xpath("td[5]")).getText());
-			contacts.add(contact);
-		}
-		return contacts;
 	}
 }

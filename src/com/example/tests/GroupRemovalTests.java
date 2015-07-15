@@ -18,13 +18,11 @@ public class GroupRemovalTests extends TestBase {
 		List<GroupData> oldList = app.getGroupHelper().getGroups();
 
 		Random rnd = new Random();
-		int index = -1;
+		int index = 0;		
 		if (oldList.size() > 1) {
 			index = rnd.nextInt(oldList.size() - 1);
-		} else if (oldList.size() == 1) {
-			index = 0;
 		}
-
+	
 		// actions
 		app.getGroupHelper().deleteGroup(index);
 
@@ -35,5 +33,6 @@ public class GroupRemovalTests extends TestBase {
 		oldList.remove(index);
 		Collections.sort(oldList);
 		assertEquals(newList, oldList);
+
 	}
 }

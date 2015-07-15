@@ -11,10 +11,10 @@ import org.testng.annotations.Test;
 import static com.example.fw.ContactHelper.MODIFICATION;
 
 public class ContactModificationTest extends TestBase {
-	
+
 	@Test(dataProvider="randomValidContactGenerator")
 	public void modifyContact(ContactData contact) {
-		app.navigateTo().mainPage();
+		
 		// save old state
 		List<ContactData> oldList = app.getContactHelper().getContacts();
 
@@ -22,11 +22,7 @@ public class ContactModificationTest extends TestBase {
 		int index=rnd.nextInt(oldList.size()-1);
 		
 		// actions
-		app.getContactHelper()
-		.initContactModification(index)	
-		.fillContactForm(contact, MODIFICATION)
-		.sumbitContactModification()
-		.returnToHomePage();
+		app.getContactHelper().modifyContact(index, contact, MODIFICATION);		
 		
 		// save new state
 		List<ContactData> newList = app.getContactHelper().getContacts();

@@ -14,17 +14,13 @@ public class ContactCreationTests extends TestBase {
 	@Test(dataProvider = "randomValidContactGenerator")
 	public void testConntactCreationWithValidData(ContactData contact)
 			throws Exception {
-		app.navigateTo().mainPage();
+		//app.navigateTo().mainPage();
 
 		// save old state
 		List<ContactData> oldList = app.getContactHelper().getContacts();
 
 		// actions
-		app.getContactHelper()
-		.initContactCreation()
-		.fillContactForm(contact, CREATION)
-		.submitContactCreation()
-		.returnToHomePage();
+		app.getContactHelper().createContact(contact, CREATION);		
 
 		// save new state
 		List<ContactData> newList = app.getContactHelper().getContacts();

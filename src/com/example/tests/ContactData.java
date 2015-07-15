@@ -3,18 +3,18 @@ package com.example.tests;
 public class ContactData implements Comparable<ContactData> {
 	private String name = "";
 	private String lastname = "";
-	private String address;
-	private String home;
-	private String mobile;
-	private String work;
-	private String email;
-	private String email2;
+	private String address = "";
+	private String home = "";
+	private String mobile = "";
+	private String work = "";
+	private String email = "";
+	private String email2 = "";
 	private String bday = "-";
 	private String bmonth = "-";
-	private String byear;
+	private String byear = "";
 	private String new_group = "[none]";
-	private String address2;
-	private String phone2;
+	private String address2 = "";
+	private String phone2 = "";
 
 	public ContactData() {
 	}
@@ -222,6 +222,5 @@ public class ContactData implements Comparable<ContactData> {
 	public String getPhone2() {
 		return phone2;
 	}
-	
-	
+
 }

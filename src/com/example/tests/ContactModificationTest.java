@@ -1,14 +1,14 @@
 package com.example.tests;
 
+import static com.example.fw.ContactHelper.MODIFICATION;
 import static org.testng.Assert.assertEquals;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 import org.testng.annotations.Test;
 
-import static com.example.fw.ContactHelper.MODIFICATION;
+import com.example.utils.SortedListOf;
 
 public class ContactModificationTest extends TestBase {
 
@@ -16,7 +16,7 @@ public class ContactModificationTest extends TestBase {
 	public void modifyContact(ContactData contact) {
 		
 		// save old state
-		List<ContactData> oldList = app.getContactHelper().getContacts();
+		SortedListOf<ContactData> oldList = app.getContactHelper().getContacts();
 
 		Random rnd = new Random();
 		int index=rnd.nextInt(oldList.size()-1);
@@ -25,7 +25,7 @@ public class ContactModificationTest extends TestBase {
 		app.getContactHelper().modifyContact(index, contact, MODIFICATION);		
 		
 		// save new state
-		List<ContactData> newList = app.getContactHelper().getContacts();
+		SortedListOf<ContactData> newList = app.getContactHelper().getContacts();
 
 		// compare
 		oldList.remove(index);

@@ -25,10 +25,11 @@ public class GroupHelper extends HelperBase {
 	}
 
 	private void rebuildCache() {
-		SortedListOf<GroupData> cachedGroups = new SortedListOf<GroupData>();
+		cachedGroups = new SortedListOf<GroupData>();
 
 		manager.navigateTo().groupsPage();
-		List<WebElement> checkBoxes = driver.findElements(By.name("selected[]"));
+		List<WebElement> checkBoxes = driver
+				.findElements(By.name("selected[]"));
 		for (WebElement checkbox : checkBoxes) {
 			String title = checkbox.getAttribute("title");
 			String name = title.substring("Select (".length(), title.length()
@@ -51,7 +52,7 @@ public class GroupHelper extends HelperBase {
 		manager.navigateTo().groupsPage();
 		initGroupModification(index);
 		fillGroupForm(group);
-		submitGroupCreation();
+		sumbitGroupModification();
 		returnToGroupsPage();
 		rebuildCache();
 		return this;

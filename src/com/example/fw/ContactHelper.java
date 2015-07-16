@@ -1,12 +1,12 @@
 package com.example.fw;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.example.tests.ContactData;
+import com.example.utils.SortedListOf;
 
 public class ContactHelper extends HelperBase {
 
@@ -18,8 +18,17 @@ public class ContactHelper extends HelperBase {
 
 	}
 
-	public List<ContactData> getContacts() {
-		List<ContactData> contacts = new ArrayList<ContactData>();
+	private SortedListOf<ContactData> cachedContacts;
+
+	public SortedListOf<ContactData> getContacts() {
+		if (cachedContacts == null) {
+			rebuildCache();
+		}
+		return cachedContacts;
+	}
+
+	private void rebuildCache() {
+		cachedContacts = new SortedListOf<ContactData>();
 		manager.navigateTo().mainPage();
 		List<WebElement> allRows = driver.findElements(By
 				.xpath("//tr[@name='entry']"));
@@ -29,9 +38,8 @@ public class ContactHelper extends HelperBase {
 					.withLastname(row.findElement(By.xpath("td[2]")).getText())
 					.withEmail(row.findElement(By.xpath("td[4]")).getText())
 					.withMobile(row.findElement(By.xpath("td[5]")).getText());
-			contacts.add(contact);
+			cachedContacts.add(contact);
 		}
-		return contacts;
 	}
 
 	public ContactHelper createContact(ContactData contact, boolean formType) {
@@ -40,6 +48,7 @@ public class ContactHelper extends HelperBase {
 		fillContactForm(contact, formType);
 		submitContactCreation();
 		returnToHomePage();
+		rebuildCache();
 		return this;
 	}
 
@@ -50,14 +59,16 @@ public class ContactHelper extends HelperBase {
 		fillContactForm(contact, MODIFICATION);
 		sumbitContactModification();
 		returnToHomePage();
+		rebuildCache();
 		return this;
 	}
-	
-	public ContactHelper deleteContact(int index){
+
+	public ContactHelper deleteContact(int index) {
 		manager.navigateTo().mainPage();
 		initContactModification(index);
 		submitContactDeletion();
 		returnToHomePage();
+		rebuildCache();
 		return this;
 	}
 
@@ -96,6 +107,7 @@ public class ContactHelper extends HelperBase {
 
 	public ContactHelper submitContactCreation() {
 		click(By.name("submit"));
+		cachedContacts = null;
 		return this;
 	}
 
@@ -114,11 +126,13 @@ public class ContactHelper extends HelperBase {
 
 	public ContactHelper submitContactDeletion() {
 		click(By.xpath("//input[@value='Delete']"));
+		cachedContacts = null;
 		return this;
 	}
 
 	public ContactHelper sumbitContactModification() {
 		click(By.xpath("//input[@value='Update']"));
+		cachedContacts = null;
 		return this;
 	}
 }

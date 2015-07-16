@@ -1,6 +1,7 @@
 package com.example.fw;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByLinkText;
 
 public class NavigationHelper extends HelperBase {
 
@@ -9,13 +10,13 @@ public class NavigationHelper extends HelperBase {
 	}
 
 	public void mainPage() {
-		if (!onMainPage()){			
+		if (!onMainPage()) {
 			click(By.linkText("home"));
-		}		
+		}
 	}
 
 	private boolean onMainPage() {
-			return (driver.findElements(By.id("maintable")).size() > 0);
+		return (driver.findElements(By.id("maintable")).size() > 0);
 	}
 
 	public void groupsPage() {
@@ -32,8 +33,16 @@ public class NavigationHelper extends HelperBase {
 		}
 	}
 
-	public void homePage() {
-		click(By.linkText("home"));
+	public void printPhones() {
+		//if (!onPrintPhones()) {
+			click(By.linkText("print phones"));
+		//}
 	}
 
+	private boolean onPrintPhones() {
+		if (((driver.findElements(By.id("view"))).size() > 0)){
+			return true;
+		} else
+			return false;
+	}
 }

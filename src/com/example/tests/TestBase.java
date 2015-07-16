@@ -50,7 +50,7 @@ public class TestBase {
 	public Iterator<Object[]> randomValidContactGenerator() {
 		List<Object[]> list = new ArrayList<Object[]>();
 		Random rnd = new Random();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 1; i++) {
 			ContactData contact = new ContactData();
 			if (rnd.nextInt(5) > 0) {
 				contact.withName(nameRand()).withLastname(surnameRand())

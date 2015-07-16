@@ -1,12 +1,12 @@
 package com.example.fw;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.example.tests.GroupData;
+import com.example.utils.SortedListOf;
 
 public class GroupHelper extends HelperBase {
 
@@ -14,19 +14,27 @@ public class GroupHelper extends HelperBase {
 		super(manager);
 	}
 
-	public List<GroupData> getGroups() {
-		List<GroupData> groups = new ArrayList<GroupData>();
+	private SortedListOf<GroupData> cachedGroups;
+
+	public SortedListOf<GroupData> getGroups() {
+
+		if (cachedGroups == null) {
+			rebuildCache();
+		}
+		return cachedGroups;
+	}
+
+	private void rebuildCache() {
+		SortedListOf<GroupData> cachedGroups = new SortedListOf<GroupData>();
 
 		manager.navigateTo().groupsPage();
-		List<WebElement> checkBoxes = driver
-				.findElements(By.name("selected[]"));
+		List<WebElement> checkBoxes = driver.findElements(By.name("selected[]"));
 		for (WebElement checkbox : checkBoxes) {
 			String title = checkbox.getAttribute("title");
 			String name = title.substring("Select (".length(), title.length()
 					- ")".length());
-			groups.add(new GroupData().withName(name));
+			cachedGroups.add(new GroupData().withName(name));
 		}
-		return groups;
 	}
 
 	public GroupHelper createGroup(GroupData group) {
@@ -35,6 +43,7 @@ public class GroupHelper extends HelperBase {
 		fillGroupForm(group);
 		submitGroupCreation();
 		returnToGroupsPage();
+		rebuildCache();
 		return this;
 	}
 
@@ -44,14 +53,16 @@ public class GroupHelper extends HelperBase {
 		fillGroupForm(group);
 		submitGroupCreation();
 		returnToGroupsPage();
+		rebuildCache();
 		return this;
 	}
 
 	public GroupHelper deleteGroup(int index) {
-		manager.navigateTo().groupsPage();		
-			selectGroupByIndex(index);
-			submitGroupDeletion();
-			returnToGroupsPage();
+		manager.navigateTo().groupsPage();
+		selectGroupByIndex(index);
+		submitGroupDeletion();
+		returnToGroupsPage();
+		rebuildCache();
 		return this;
 	}
 
@@ -71,6 +82,7 @@ public class GroupHelper extends HelperBase {
 
 	public GroupHelper submitGroupCreation() {
 		click(By.name("submit"));
+		cachedGroups = null;
 		return this;
 	}
 
@@ -92,11 +104,14 @@ public class GroupHelper extends HelperBase {
 
 	public GroupHelper sumbitGroupModification() {
 		click(By.name("update"));
+		cachedGroups = null;
 		return this;
 	}
 
-	private void submitGroupDeletion() {
+	private GroupHelper submitGroupDeletion() {
 		click(By.name("delete"));
+		cachedGroups = null;
+		return this;
 	}
 
 }

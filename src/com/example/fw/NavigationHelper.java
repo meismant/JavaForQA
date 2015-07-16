@@ -1,7 +1,6 @@
 package com.example.fw;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.By.ByLinkText;
 
 public class NavigationHelper extends HelperBase {
 
@@ -34,9 +33,9 @@ public class NavigationHelper extends HelperBase {
 	}
 
 	public void printPhones() {
-		//if (!onPrintPhones()) {
+		if (!onPrintPhones()) {
 			click(By.linkText("print phones"));
-		//}
+		}
 	}
 
 	private boolean onPrintPhones() {

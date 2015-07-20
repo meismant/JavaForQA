@@ -16,9 +16,19 @@ public class PhoneHelper extends HelperBase {
 		super(manager);
 	}
 
+	private SortedListOf<ContactData> phones;
+	private SortedListOf<ContactData> cachedContacts;
+	
 	public SortedListOf<ContactData> getPhones() {
+		if (phones == null) {
+			rebuildPhonesCache();
+		}
+		return phones;
+	}
+
+	private void rebuildPhonesCache() {
 		manager.navigateTo().printPhones();
-		SortedListOf<ContactData> phones = new SortedListOf<ContactData>();
+		phones = new SortedListOf<ContactData>();
 
 		List<WebElement> cells = driver.findElements(By.tagName("td"));
 
@@ -34,22 +44,52 @@ public class PhoneHelper extends HelperBase {
 					.withBday(findBday(data)).withBmonth(findBmonth(data))
 					.withByear(findByear(data))
 					.withPhone2(findPhonesOfContact(data, "phone2"));
-			/*
-			 * System.out.println(" name " + contact.getName());
-			 * System.out.println(" last name " + contact.getLastname());
-			 * System.out.println(" home " + contact.getHome());
-			 * System.out.println(" mobile " + contact.getMobile());
-			 * System.out.println(" work " + contact.getWork());
-			 * System.out.println(" bday " + contact.getBday());
-			 * System.out.println(" bmonth " + contact.getBmonth());
-			 * System.out.println(" byear " + contact.getByear());
-			 * System.out.println(" phone2 " + contact.getPhone2());
-			 */
 			phones.add(contact);
 		}
-		return phones;
 	}
 
+	public SortedListOf<ContactData> getContacts() {
+		if (cachedContacts == null) {
+			rebuildContactsCache();
+		}
+		return cachedContacts;
+	}
+
+	private void rebuildContactsCache() {
+		cachedContacts = new SortedListOf<ContactData>();
+		manager.navigateTo().mainPage();
+		List<WebElement> allRows = driver.findElements(By
+				.xpath("//tr[@name='entry']"));
+		
+		
+		for (WebElement row : allRows) {
+			row.findElement(By.xpath("td[7]/a")).click();
+
+			System.out.println(driver.findElement(By.tagName("h1")).getText());
+			if (driver.findElement(By.tagName("h1")).getText().equalsIgnoreCase("Edit / add address book entry")){
+				System.out.println("conditions are true");
+				ContactData contact = new ContactData();
+				contact.withName(driver.findElement(By.name("firstname")).getAttribute("value"))
+						.withLastname(driver.findElement(By.name("lastname")).getAttribute("value"))
+						.withHome(driver.findElement(By.name("home")).getAttribute("value"))
+						.withMobile(driver.findElement(By.name("mobile")).getAttribute("value"))
+						.withWork(driver.findElement(By.name("work")).getAttribute("value"))
+						.withBday(driver.findElement(By.name("bday")).getAttribute("value"))
+						.withBmonth(driver.findElement(By.name("bmonth")).getAttribute("value"))
+						.withByear(driver.findElement(By.name("byear")).getAttribute("value"))
+						.withPhone2(driver.findElement(By.name("phone2")).getAttribute("value"));
+				cachedContacts.add(contact);
+			}				
+		}
+	}
+	
+	private ContactData getContact(){
+		ContactData contact = new ContactData();
+		return contact;
+	}
+	
+	//--------------------------------------------------------------------------------------
+	
 	private String find(String data, String regex) {
 		String result = "";
 		Pattern pattern;

@@ -44,7 +44,7 @@ public class TestBase {
 		return wrapContactsForDataProvider(generateRandomContacts(5)).iterator();
 	}
 
-	private List<Object[]> wrapContactsForDataProvider(List<ContactData> contacts) {
+	protected List<Object[]> wrapContactsForDataProvider(List<ContactData> contacts) {
 		List<Object[]> list = new ArrayList<Object[]>();
 		for (ContactData contact : contacts) {
 			list.add(new Object[]{contact});

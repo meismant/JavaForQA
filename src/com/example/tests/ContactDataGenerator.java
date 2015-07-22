@@ -1,6 +1,8 @@
 package com.example.tests;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,11 +76,42 @@ public class ContactDataGenerator {
 						contact.getEmail()+","+
 						contact.getEmail2()+","+
 						contact.getNew_group()
-						+"\n");
+						+",!"+"\n");
 		}
 		writer.close();		
 	}
 
+	public static List<ContactData> loadContactsFromCsvFile(File file)
+			throws IOException {
+		List<ContactData> list = new ArrayList<ContactData>();
+		FileReader reader = new FileReader(file);
+		BufferedReader bufferReader = new BufferedReader(reader);
+		String line = bufferReader.readLine();
+		while (line != null) {
+			String[] part = line.split(",");
+			ContactData contact = new ContactData()
+			.withName(part[1])
+			.withLastname(part[2])
+			.withAddress(part[3])
+			.withAddress2(part[4])
+			.withBday(part[5])
+			.withBmonth(part[6])
+			.withByear(part[7])
+			.withMobile(part[8])
+			.withHome(part[9])
+			.withWork(part[10])
+			.withPhone2(part[11])
+			.withEmail(part[12])
+			.withEmail2(part[13])
+			.withNew_group(part[14]);
+			list.add(contact);
+			line = bufferReader.readLine();		
+		}	
+		bufferReader.close();
+		reader.close();
+		return list;
+	}
+	
 	private static void saveContactsToXmlFile(List<ContactData> contacts,
 			File file) {
 		// TODO Auto-generated method stub

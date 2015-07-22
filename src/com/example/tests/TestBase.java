@@ -11,6 +11,8 @@ import org.testng.annotations.DataProvider;
 
 import com.example.fw.ApplicationManager;
 
+import static com.example.tests.GroupDataGenerator.generateRandomGroups;
+
 public class TestBase {
 
 	protected static ApplicationManager app;
@@ -27,23 +29,15 @@ public class TestBase {
 
 	@DataProvider
 	public Iterator<Object[]> randomValidGroupGenerator() {
-		List<Object[]> list = new ArrayList<Object[]>();
-		for (int i = 0; i < 1; i++) {
-			GroupData group = new GroupData().withName(generateRandomString())
-					.withHeader(generateRandomString())
-					.withFooter(generateRandomString());
-			list.add(new Object[] { group });
-		}
-		return list.iterator();
+		return wrapGroupsForDataProvider(generateRandomGroups(5)).iterator();
 	}
 
-	public String generateRandomString() {
-		Random rnd = new Random();
-		if (rnd.nextInt(3) == 0) {
-			return "";
-		} else {
-			return Integer.toString(rnd.nextInt());
-		}
+	public static List<Object[]> wrapGroupsForDataProvider(List<GroupData> groups) {
+		List<Object[]> list = new ArrayList<Object[]>();
+		for (GroupData group : groups) {
+			list.add(new Object[]{group});
+		}	
+		return list;
 	}
 
 	@DataProvider

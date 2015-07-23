@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.thoughtworks.xstream.XStream;
+
 public class GroupDataGenerator {
 
 	public static void main(String[] args) throws IOException {
@@ -64,7 +66,7 @@ public class GroupDataGenerator {
 		FileWriter writer = new FileWriter(file);
 		for (GroupData group : groups) {
 			writer.write(group.getName() + ", " + group.getHeader() + ", "
-					+ group.getFooter() +",!" +"\n");
+					+ group.getFooter() + ",!" + "\n");
 		}
 		writer.close();
 	}
@@ -77,17 +79,30 @@ public class GroupDataGenerator {
 		String line = bufferReader.readLine();
 		while (line != null) {
 			String[] part = line.split(",");
-			GroupData group = new GroupData().withName(part[0]).withHeader(part[1]).withFooter(part[2]);
+			GroupData group = new GroupData().withName(part[0])
+					.withHeader(part[1]).withFooter(part[2]);
 			list.add(group);
-			line = bufferReader.readLine();		
-		}	
+			line = bufferReader.readLine();
+		}
 		bufferReader.close();
 		reader.close();
 		return list;
 	}
 
-	private static void saveGroupsToXmlFile(List<GroupData> groups, File file) {
-		// TODO Auto-generated method stub
+	private static void saveGroupsToXmlFile(List<GroupData> groups, File file)
+			throws IOException {
+		XStream xstream = new XStream();
+		xstream.alias("group", GroupData.class);
+		String xml = xstream.toXML(groups);
+		FileWriter writer = new FileWriter(file);
+		writer.write(xml);
+		writer.close();
+	}
+
+	public static List<GroupData> loadGroupsFromXmlFile(File file) {
+		XStream xstream = new XStream();
+		xstream.alias("group", GroupData.class);
+		return (List<GroupData>) xstream.fromXML(file);
 
 	}
 }

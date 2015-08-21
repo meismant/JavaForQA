@@ -1,21 +1,20 @@
 package com.example.tests;
 
-public class GroupData implements Comparable<GroupData>{
+public class GroupData implements Comparable<GroupData> {
+	private String id;
 	private String name;
 	private String header;
 	private String footer;
 
-	public GroupData() {	
+	public GroupData() {
 	}
-	
+
 	public GroupData(String name, String header, String footer) {
 		this.name = name;
 		this.header = header;
 		this.footer = footer;
 	}
 
-	
-	
 	@Override
 	public String toString() {
 		return "GroupData [name=" + name + ", header=" + header + ", footer="
@@ -24,9 +23,9 @@ public class GroupData implements Comparable<GroupData>{
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		//final int prime = 31;
 		int result = 1;
-		//result = prime * result + ((name == null) ? 0 : name.hashCode());
+		// result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -52,12 +51,17 @@ public class GroupData implements Comparable<GroupData>{
 		return this.name.toLowerCase().compareTo(other.name.toLowerCase());
 	}
 
-	public GroupData withName(String name) {		
+	public GroupData withId(String id) {
+		this.id = id;
+		return this;
+	}
+	
+	public GroupData withName(String name) {
 		this.name = name;
 		return this;
 	}
 
-	public GroupData withHeader(String header) {		
+	public GroupData withHeader(String header) {
 		this.header = header;
 		return this;
 	}
@@ -65,8 +69,12 @@ public class GroupData implements Comparable<GroupData>{
 	public GroupData withFooter(String footer) {
 		this.footer = footer;
 		return this;
-	}	
+	}
 
+	public String getId() {
+		return id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -78,7 +86,21 @@ public class GroupData implements Comparable<GroupData>{
 	public String getFooter() {
 		return footer;
 	}
-	
-	
-	
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setHeader(String header) {
+		this.header = header;
+	}
+
+	public void setFooter(String footer) {
+		this.footer = footer;
+	}
+
 }

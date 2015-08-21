@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 import com.example.tests.ContactData;
 import com.example.utils.SortedListOf;
 
-public class PhoneHelper extends HelperBase {
+public class PhoneHelper extends WebDriverHelperBase {
 
 	protected PhoneHelper(ApplicationManager manager) {
 		super(manager);

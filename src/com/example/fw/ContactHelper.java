@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import com.example.tests.ContactData;
 import com.example.utils.SortedListOf;
 
-public class ContactHelper extends HelperBase {
+public class ContactHelper extends WebDriverHelperBase {
 
 	public static boolean CREATION = true;
 	public static boolean MODIFICATION = false;

@@ -4,5 +4,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Selenium"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/XStream"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
+	<classpathentry kind="lib" path="D:/Install/Automation/libs/javaee.jar/javaee.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

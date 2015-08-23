@@ -12,9 +12,13 @@ public class Sample {
 		Properties properties = new Properties();
 		properties.load(new FileReader(new File("application.properties")));
 		ApplicationManager app = new ApplicationManager(properties);
-		//JdbcHelper jdbc = new JdbcHelper(app, "jdbc:mysql://localhost/addressbook?user=root&password=");
-		
-		System.out.println(app.getHibernateHelper().listGroups());
-
+		/**
+		 * JdbcHelper jdbc = new JdbcHelper(app,
+		 * "jdbc:mysql://localhost/addressbook?user=root&password=");
+		 * System.out.println(jdbc.listContacts());
+		 * System.out.println(jdbc.listContacts());
+		 **/
+		//System.out.println(app.getHibernateHelper().listGroups());
+		System.out.println(app.getHibernateHelper().listContacts());
 	}
 }

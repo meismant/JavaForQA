@@ -16,17 +16,25 @@ public class ApplicationManager {
 	private ContactHelper contactHelper;
 	private PhoneHelper phoneHelper;
 	private HibernateHelper hibernateHelper;
+	private ApplicationModel model;
+	
 	private Properties properties;
 
 	public ApplicationManager(Properties properties) {
 		this.properties = properties;
-
+		model = new ApplicationModel();
+		model.setGroups(getHibernateHelper().listGroups());
+		model.setContacts(getHibernateHelper().listContacts());
 	}
 
 	public void stop() {
 		driver.quit();
 	}
 
+	public ApplicationModel getModel(){
+		return model;
+	}
+	
 	public NavigationHelper navigateTo() {
 		if (navigationHelper == null) {
 			navigationHelper = new NavigationHelper(this);
@@ -34,6 +42,10 @@ public class ApplicationManager {
 		return navigationHelper;
 	}
 
+	public String getProperty(String key){
+		return properties.getProperty(key);
+	}
+	
 	public GroupHelper getGroupHelper() {
 		if (groupHelper == null) {
 			groupHelper = new GroupHelper(this);

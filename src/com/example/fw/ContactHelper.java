@@ -18,37 +18,13 @@ public class ContactHelper extends WebDriverHelperBase {
 
 	}
 
-	private SortedListOf<ContactData> cachedContacts;
-
-	public SortedListOf<ContactData> getContacts() {
-		if (cachedContacts == null) {
-			rebuildCache();
-		}
-		return cachedContacts;
-	}
-
-	private void rebuildCache() {
-		cachedContacts = new SortedListOf<ContactData>();
-		manager.navigateTo().mainPage();
-		List<WebElement> allRows = driver.findElements(By
-				.xpath("//tr[@name='entry']"));
-		for (WebElement row : allRows) {
-			ContactData contact = new ContactData();
-			contact.withName(row.findElement(By.xpath("td[3]")).getText())
-					.withLastname(row.findElement(By.xpath("td[2]")).getText())
-					.withEmail(row.findElement(By.xpath("td[4]")).getText())
-					.withMobile(row.findElement(By.xpath("td[5]")).getText());
-			cachedContacts.add(contact);
-		}
-	}
-
 	public ContactHelper createContact(ContactData contact, boolean formType) {
 		manager.navigateTo().mainPage();
 		initContactCreation();
 		fillContactForm(contact, formType);
 		submitContactCreation();
 		returnToHomePage();
-		rebuildCache();
+		manager.getModel().addContact(contact);
 		return this;
 	}
 
@@ -59,7 +35,7 @@ public class ContactHelper extends WebDriverHelperBase {
 		fillContactForm(contact, MODIFICATION);
 		sumbitContactModification();
 		returnToHomePage();
-		rebuildCache();
+		manager.getModel().removeContact(index).addContact(contact);
 		return this;
 	}
 
@@ -68,11 +44,27 @@ public class ContactHelper extends WebDriverHelperBase {
 		initContactModification(index);
 		submitContactDeletion();
 		returnToHomePage();
-		rebuildCache();
+		manager.getModel().removeContact(index);
 		return this;
 	}
 
 	// -----------------------------------------------------------------------------------
+
+	public SortedListOf<ContactData> getUiContacts() {
+		SortedListOf<ContactData> contacts = new SortedListOf<ContactData>();
+		manager.navigateTo().mainPage();
+		List<WebElement> allRows = driver.findElements(By
+				.xpath("//tr[@name='entry']"));
+		for (WebElement row : allRows) {
+			ContactData contact = new ContactData();
+			contact.withName(row.findElement(By.xpath("td[3]")).getText())
+					.withLastname(row.findElement(By.xpath("td[2]")).getText())
+					.withEmail(row.findElement(By.xpath("td[4]")).getText())
+					.withMobile(row.findElement(By.xpath("td[5]")).getText());
+			contacts.add(contact);
+		}
+		return contacts;
+	}
 
 	public ContactHelper initContactCreation() {
 		click(By.linkText("add new"));
@@ -107,7 +99,6 @@ public class ContactHelper extends WebDriverHelperBase {
 
 	public ContactHelper submitContactCreation() {
 		click(By.name("submit"));
-		cachedContacts = null;
 		return this;
 	}
 
@@ -126,13 +117,11 @@ public class ContactHelper extends WebDriverHelperBase {
 
 	public ContactHelper submitContactDeletion() {
 		click(By.xpath("//input[@value='Delete']"));
-		cachedContacts = null;
 		return this;
 	}
 
 	public ContactHelper sumbitContactModification() {
 		click(By.xpath("//input[@value='Update']"));
-		cachedContacts = null;
 		return this;
 	}
 }

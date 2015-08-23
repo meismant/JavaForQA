@@ -5,6 +5,5 @@ public class HelperBase {
 
 	protected HelperBase(ApplicationManager manager) {
 		this.manager = manager;
-
 	}
 }
